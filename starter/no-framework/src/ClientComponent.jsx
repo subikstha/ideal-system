@@ -9,7 +9,7 @@ export default function ClientComponent() {
     <fieldset>
       <legend>Client Component</legend>
       <p>Counter {counter}</p>
-      <button onClick={setCounter(counter + 1)}>Increment</button>
+      <button onClick={() => setCounter(counter + 1)}>Increment</button>
     </fieldset>
   );
 }

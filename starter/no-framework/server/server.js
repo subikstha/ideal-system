@@ -3,7 +3,7 @@ const { readFileSync } = require("node:fs");
 const Fastify = require("fastify");
 const fastifyStaticPlugin = require("@fastify/static");
 const React = require("react");
-const { renderToPipableStream } = require("react-server-dom-webpack/server");
+const { renderToPipeableStream } = require("react-server-dom-webpack/server");
 const AppImport = require("../src/App.jsx");
 
 const App = AppImport.default;
@@ -41,11 +41,11 @@ fastify.get("/", async function rootHandler(request, reply) {
 fastify.get("/react-flight", function reactFlightHandler(request, reply) {
   try {
     reply.header("Content-Type", "application/octect-stream");
-    // be careful about whitespace
-    return reply.send(`1:{"name":"App","env":"Server","key":null,"owner":null,"props":{}}
-0:D"$1"
-0:["$","div",null,{"children":["$","h1",null,{"children":"Notes Application"},"$1"]},"$1"]
-`);
+    const { pipe } = renderToPipeableStream(
+      React.createElement(App),
+      MODULE_MAP,
+    );
+    pipe(reply.raw);
   } catch (err) {
     request.log.error("react-flight err", err);
     throw err;
