@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev:client": "webpack --watch",
-    "dev:server": "node --watch --conditions react-server server/msin.js"
+    "dev:server": "node --watch --conditions react-server server/main.js"
   },
   "keywords": [],
   "author": "Brian Holt",
